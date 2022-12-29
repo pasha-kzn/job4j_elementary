@@ -42,7 +42,7 @@ public class PointTest {
     }
 
     @Test
-    public void when84to57then5() {
+    public void when84to57then4dot24() {
         double expected = 4.24;
         int x1 = 8;
         int y1 = 4;
