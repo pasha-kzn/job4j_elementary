@@ -6,11 +6,11 @@ public class JavaNameValidator {
     public static boolean isNameValid(String name) {
         boolean b = true;
         char[] array = name.toCharArray();
-        if (name.isEmpty()) {
+        if (name.isEmpty() || !isLowerLatinLetter(array[0])) {
             b = false;
         }
-        for (char ch : array) {
-            if ((!isSpecialSymbol(ch) | !isUpperLatinLetter(ch) | !isLowerLatinLetter(ch) | !isDigit(ch)) && !isLowerLatinLetter(array[0])) {
+        for (int i = 1; i < array.length; i++) {
+            if (isSpecialSymbol(array[i]) && isUpperLatinLetter(array[i]) && isLowerLatinLetter(array[i]) && !isDigit(array[i])) {
                 b = false;
                 break;
             }
