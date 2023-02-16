@@ -19,8 +19,6 @@ public class Main {
         townCar.refill();
         System.out.println();
         SportCar sportCar = new SportCar();
-        //Vehicle vehicle = sportCar;
-        //Fuel fuel = sportCar;
         sportCar.changeGear();
         sportCar.accelerate();
         sportCar.steer();
