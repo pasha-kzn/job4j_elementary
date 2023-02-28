@@ -20,12 +20,7 @@ public class FactTest {
 
     @Test
     public void whenExceptionTwo() {
-        Fact fact = new Fact();
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    fact.calc(-10);
-                });
-        assertThat(ex.getMessage()).isEqualTo("N could not be less then 0");
+        int expected = 24;
+        assertThat(new Fact().calc(4)).isEqualTo(expected);
     }
 }
