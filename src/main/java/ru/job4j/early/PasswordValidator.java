@@ -3,24 +3,39 @@ package ru.job4j.early;
 import static java.lang.Character.*;
 
 public class PasswordValidator {
-
-    public static String validate(String password) {
+        public static String validate(String password) {
+            int upperCount = 0;
+            int lowerCount = 0;
+            int digitCount = 0;
+            int specialCount = 0;
         if (password == null) {
             throw new IllegalArgumentException("Password can't be null");
         }
         if (password.length() < 8 || password.length() > 32) {
             throw new IllegalArgumentException("Password should be length [8, 32]");
         }
-        if (!hasUppercaseLetter(password.toCharArray())) {
+
+        for (char p : password.toCharArray()) {
+            if (isUpperCase(p)) {
+                upperCount++;
+            } else if (isLowerCase(p)) {
+                lowerCount++;
+            } else if (isDigit(p)) {
+                digitCount++;
+            } else if (!isDigit(p) && !isLetter(p)) {
+                specialCount++;
+            }
+        }
+        if (upperCount == 0) {
             throw new IllegalArgumentException("Password should contain at least one uppercase letter");
         }
-        if (!hasLowercaseLetter(password.toCharArray())) {
+        if (lowerCount == 0) {
             throw new IllegalArgumentException("Password should contain at least one lowercase letter");
         }
-        if (!hasDigit(password.toCharArray())) {
+        if (digitCount == 0) {
             throw new IllegalArgumentException("Password should contain at least one figure");
         }
-        if (!hasSpecialCharacter(password.toCharArray())) {
+        if (specialCount == 0) {
             throw new IllegalArgumentException("Password should contain at least one special symbol");
         }
         if (containsSubstrings(password)) {
@@ -29,48 +44,10 @@ public class PasswordValidator {
         return password;
     }
 
-    public static boolean hasUppercaseLetter(char[] pass) {
-        for (char p : pass) {
-            if (isUpperCase(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean hasLowercaseLetter(char[] pass) {
-        for (char p : pass) {
-            if (isLowerCase(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean hasDigit(char[] pass) {
-        for (char p : pass) {
-            if (isDigit(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean hasSpecialCharacter(char[] pass) {
-        for (char p : pass) {
-            if (!isDigit(p) && !isLetter(p)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static boolean containsSubstrings(String password) {
-        int rsl;
         String[] subStr = {"qwerty", "12345", "password", "admin", "user"};
-        for (int i = 0; i < subStr.length; i++) {
-            rsl = password.toLowerCase().indexOf(subStr[i]);
-            if (rsl != -1) {
+        for (String s : subStr) {
+            if (password.toLowerCase().contains(s)) {
                 return true;
             }
         }
